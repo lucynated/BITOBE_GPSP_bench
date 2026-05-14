@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Международный бенчмарк операционной модели — рамка проекта</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&family=PT+Serif:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+<style>
+/* ===== BITOBE 2025 new — палитра §8.1 ===== */
+:root {
+  --black: #000000;
+  --white: #FFFFFF;
+  --grey: #7A899A;
+  --grey-light: #C8C8C8;
+  --grey-dark: #64676A;
+  --copper: #BE9176;        /* accent1 — разделы, ссылки, кнопки */
+  --blue: #182D8D;          /* accent2 — основной акцент, иконки */
+  --navy: #19194C;          /* accent3 — тёмные плашки с выводом */
+  --light-blue: #739FD2;    /* accent4 — 2-й уровень */
+  --teal: #218787;          /* accent5 — 3-й уровень / позитив */
+  --yellow: #FFC364;        /* цветовое кодирование */
+  --red: #CF1259;           /* негативные сценарии */
+
+  --paper: #FFFFFF;
+  --paper-shade: #F5F5F5;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Onest', -apple-system, sans-serif;
+  background: var(--paper);
+  color: var(--black);
+  font-size: 15px;
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+/* ===== Side nav ===== */
+.sidenav {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 48px 24px 32px 32px;
+  border-right: 0.5px solid var(--black);
+  background: var(--paper);
+  overflow-y: auto;
+}
+
+.brand {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  color: var(--blue);
+  margin-bottom: 2px;
+}
+
+.brand-sub {
+  font-family: 'Onest', sans-serif;
+  font-size: 11px;
+  color: var(--grey-dark);
+  letter-spacing: 0.04em;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+
+.nav-section {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--grey-dark);
+  margin-bottom: 12px;
+  margin-top: 28px;
+  padding-bottom: 6px;
+  border-bottom: 0.5px solid var(--black);
+}
+.nav-section:first-of-type { margin-top: 0; }
+
+.nav-list { list-style: none; }
+.nav-list li { margin-bottom: 6px; }
+.nav-list a {
+  font-family: 'Onest', sans-serif;
+  font-size: 13px;
+  color: var(--black);
+  text-decoration: none;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 4px 0;
+  font-weight: 400;
+  transition: color 0.15s;
+}
+.nav-list a:hover { color: var(--copper); }
+.nav-list a .num {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--blue);
+  font-weight: 400;
+}
+
+/* ===== Main content ===== */
+.content {
+  padding: 64px 80px 96px;
+  max-width: 940px;
+}
+
+/* ===== Cover ===== */
+.cover {
+  padding-bottom: 56px;
+  border-bottom: 0.5px solid var(--black);
+  margin-bottom: 72px;
+}
+
+/* Cover panel — фирменный navy-блок со скруглением только в правом верхнем углу */
+.cover-panel {
+  background: var(--navy);
+  color: var(--white);
+  padding: 56px 80px 56px 56px;
+  margin: 0 0 48px 0;
+  border-radius: 0 240px 0 0;
+  max-width: 780px;
+  position: relative;
+}
+.cover-panel .cover-eyebrow {
+  color: var(--copper);
+  margin-bottom: 24px;
+}
+.cover-panel h1 {
+  color: var(--white);
+  margin-bottom: 24px;
+}
+.cover-panel h1 em {
+  color: var(--white);
+}
+.cover-panel .cover-lede {
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: 0;
+  max-width: 580px;
+}
+
+/* Big number — выносная цифра §97 */
+.big-number {
+  margin: 36px 0 32px;
+  padding: 28px 0;
+  border-top: 1px solid var(--black);
+  border-bottom: 0.5px solid var(--black);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 40px;
+  align-items: center;
+  max-width: 820px;
+}
+.big-number-value {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 96px;
+  color: var(--blue);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+.big-number-value .sep {
+  color: var(--blue);
+  opacity: 0.4;
+  margin: 0 -4px;
+}
+.big-number-caption {
+  font-family: 'Onest', sans-serif;
+  font-size: 14px;
+  color: var(--grey-dark);
+  line-height: 1.55;
+  max-width: 400px;
+}
+.big-number-caption strong {
+  color: var(--black);
+  font-weight: 600;
+}
+
+.cover-meta-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Onest', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey-dark);
+  padding-bottom: 24px;
+  border-bottom: 0.5px solid var(--black);
+  margin-bottom: 56px;
+  font-weight: 500;
+}
+
+.cover-eyebrow {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--copper);
+  margin-bottom: 24px;
+}
+
+.cover h1 {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 56px;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--white);
+  margin-bottom: 28px;
+  max-width: 800px;
+}
+.cover h1 em {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--white);
+  letter-spacing: -0.015em;
+}
+
+.cover-lede {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--grey-dark);
+  max-width: 700px;
+  margin-bottom: 48px;
+  font-weight: 400;
+}
+
+.cover-meta {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 48px;
+  font-family: 'Onest', sans-serif;
+  font-size: 13px;
+  color: var(--black);
+  margin-top: 48px;
+}
+.cover-meta dt {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey-dark);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.cover-meta dd {
+  font-weight: 500;
+  color: var(--black);
+}
+
+/* ===== Section ===== */
+.section {
+  margin-bottom: 96px;
+  scroll-margin-top: 32px;
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 28px;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 0.5px solid var(--black);
+}
+
+.section-num {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 32px;
+  color: var(--blue);
+  letter-spacing: -0.01em;
+}
+
+.section-header h2 {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--black);
+}
+
+.section-intro {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--grey-dark);
+  margin-bottom: 40px;
+  max-width: 720px;
+}
+
+h3 {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 21px;
+  line-height: 1.3;
+  color: var(--black);
+  margin-top: 44px;
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+  padding-bottom: 8px;
+  border-bottom: 0.5px solid var(--black);
+  max-width: 760px;
+}
+
+h4 {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey-dark);
+  margin-top: 24px;
+  margin-bottom: 12px;
+  padding-bottom: 4px;
+  border-bottom: 0.5px solid var(--black);
+  max-width: fit-content;
+}
+
+p {
+  margin-bottom: 16px;
+  max-width: 720px;
+  font-weight: 400;
+}
+
+strong { font-weight: 700; color: var(--black); }
+em { font-style: italic; }
+
+/* ===== Definition box ===== */
+.definition {
+  background: var(--paper);
+  border-left: 4px solid var(--blue);
+  padding: 24px 28px;
+  margin: 24px 0 32px;
+  max-width: 760px;
+}
+.definition-label {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 10px;
+}
+.definition-text {
+  font-family: 'Onest', sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--black);
+  font-weight: 400;
+}
+
+/* ===== Components list ===== */
+.components {
+  list-style: none;
+  margin: 24px 0 32px;
+  max-width: 820px;
+  border-top: 1px solid var(--black);
+}
+.components li {
+  display: grid;
+  grid-template-columns: 40px 200px 1fr 90px;
+  gap: 16px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-bottom: 0.5px solid var(--black);
+  font-size: 14px;
+}
+.components .comp-num {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--blue);
+  font-weight: 400;
+}
+.components .comp-name {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  color: var(--black);
+  font-size: 15px;
+}
+.components .comp-desc {
+  color: var(--grey-dark);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.components .comp-type {
+  font-family: 'Onest', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 0 12px 0 0;
+  justify-self: end;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.comp-type.hard { color: var(--blue); border: 0.5px solid var(--blue); }
+.comp-type.soft { color: var(--copper); border: 0.5px solid var(--copper); }
+
+/* ===== Note callout ===== */
+.note {
+  background: var(--paper-shade);
+  padding: 20px 24px;
+  margin: 24px 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--black);
+  max-width: 760px;
+  border-left: 3px solid var(--grey);
+}
+.note-label {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey-dark);
+  margin-bottom: 8px;
+}
+
+/* ===== Block cards ===== */
+.blocks-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin: 24px 0 40px;
+  border-top: 1px solid var(--black);
+  border-left: 1px solid var(--black);
+}
+.block-card {
+  background: var(--paper);
+  border-right: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+  padding: 22px 24px 22px;
+  position: relative;
+}
+.block-card.hard { border-top: 3px solid var(--blue); margin-top: -1px; }
+.block-card.soft { border-top: 3px solid var(--copper); margin-top: -1px; }
+
+.block-card-num {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--blue);
+  margin-bottom: 4px;
+  font-weight: 400;
+}
+.block-card-title {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.3;
+  color: var(--black);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.block-card-desc {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--grey-dark);
+}
+.block-card-type {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-family: 'Onest', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 0 10px 0 0;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.block-card.hard .block-card-type { color: var(--blue); border: 0.5px solid var(--blue); }
+.block-card.soft .block-card-type { color: var(--copper); border: 0.5px solid var(--copper); }
+
+/* ===== Variants ===== */
+.variants {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin: 36px 0 24px;
+  max-width: 840px;
+  border-top: 1px solid var(--black);
+  border-left: 1px solid var(--black);
+}
+.variant {
+  border-right: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+  padding: 32px 28px 28px;
+  background: var(--paper);
+  position: relative;
+}
+.variant.recommended { background: var(--paper-shade); }
+.variant.recommended::before {
+  content: 'РЕКОМЕНДУЕМ';
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: var(--copper);
+  color: var(--white);
+  font-family: 'Onest', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  padding: 5px 14px;
+  font-weight: 600;
+  border-radius: 100px;
+}
+.variant-name {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 28px;
+  color: var(--black);
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+.variant-sub {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--grey-dark);
+  margin-bottom: 24px;
+}
+.variant-rows { list-style: none; }
+.variant-rows li {
+  padding: 12px 0;
+  border-top: 0.5px solid var(--black);
+  font-size: 14px;
+  line-height: 1.5;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 12px;
+}
+.variant-rows li:first-child { border-top: none; padding-top: 0; }
+.variant-rows .row-label {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey-dark);
+  font-weight: 500;
+  padding-top: 3px;
+}
+.variant-rows .row-value { color: var(--black); }
+
+/* ===== Decision frame ===== */
+.decision-frame {
+  background: var(--navy);
+  color: var(--white);
+  padding: 32px 36px;
+  margin: 36px 0;
+  max-width: 840px;
+}
+.decision-frame h4 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: var(--copper);
+  border-bottom-color: var(--copper);
+  font-weight: 500;
+}
+.decision-frame ul { list-style: none; margin-top: 8px; }
+.decision-frame li {
+  padding-left: 24px;
+  position: relative;
+  margin-bottom: 10px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--white);
+}
+.decision-frame li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--white);
+  font-weight: 500;
+}
+.decision-frame li strong { color: var(--white); font-weight: 700; }
+
+/* ===== Equinor company header ===== */
+.company-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 24px 0 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--black);
+}
+.company-name {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 44px;
+  line-height: 1;
+  color: var(--black);
+  margin-bottom: 8px;
+  letter-spacing: -0.025em;
+}
+.company-tagline {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--grey-dark);
+  max-width: 480px;
+  line-height: 1.4;
+}
+.company-stats {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 28px;
+  text-align: right;
+}
+.company-stats dt {
+  font-family: 'Onest', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey-dark);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+.company-stats dd {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--blue);
+  letter-spacing: -0.01em;
+}
+
+/* ===== Layer divider ===== */
+.layer-divider {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin: 48px 0 24px;
+  padding-bottom: 12px;
+  border-bottom: 0.5px solid var(--black);
+}
+.layer-divider .layer-num {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--blue);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+.layer-divider .layer-title {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--black);
+  letter-spacing: -0.015em;
+}
+.layer-divider .layer-sub {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--grey-dark);
+  margin-left: auto;
+}
+
+/* ===== Wide layer ===== */
+.equinor-wide {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid var(--black);
+  border-left: 1px solid var(--black);
+  margin-bottom: 16px;
+}
+.eq-block {
+  padding: 20px 24px;
+  border-right: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+  background: var(--paper);
+}
+.eq-block-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 0.5px solid var(--black);
+  gap: 8px;
+}
+.eq-block-num {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--blue);
+  font-weight: 400;
+}
+.eq-block-title {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--black);
+  flex: 1;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.confidence {
+  font-family: 'Onest', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  padding: 3px 9px;
+  border-radius: 0 10px 0 0;
+  border: 0.5px solid currentColor;
+  line-height: 1.2;
+}
+.confidence::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+.confidence.high { color: var(--teal); }
+.confidence.high::before { background: var(--teal); }
+.confidence.mid { color: var(--grey-dark); }
+.confidence.mid::before { background: var(--yellow); }
+.confidence.low { color: var(--red); }
+.confidence.low::before { background: var(--red); }
+.eq-block-body {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--black);
+}
+.eq-block-body strong { color: var(--black); font-weight: 700; }
+
+/* ===== Narrative vs reality ===== */
+.narrative-callout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin: 40px 0;
+  background: var(--navy);
+  color: var(--white);
+}
+.narrative-callout > div { padding: 28px 32px; }
+.narrative-callout .label {
+  font-family: 'Onest', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  font-weight: 500;
+  padding-bottom: 6px;
+  border-bottom: 0.5px solid var(--white);
+  display: inline-block;
+}
+.narrative-callout .narrative {
+  border-right: 0.5px solid var(--white);
+}
+.narrative-callout .narrative .label {
+  color: var(--light-blue);
+  border-bottom-color: var(--light-blue);
+}
+.narrative-callout .reality .label {
+  color: var(--copper);
+  border-bottom-color: var(--copper);
+}
+.narrative-callout p {
+  font-family: 'Onest', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--white);
+  margin: 0;
+  max-width: 100%;
+}
+.narrative-callout p strong { color: var(--white); font-weight: 700; }
+
+/* ===== Deep table (§8.4) ===== */
+.deep-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0 16px;
+  font-size: 13px;
+}
+.deep-table thead th {
+  text-align: left;
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--black);
+  padding: 12px 16px 12px 0;
+  border-bottom: 1px solid var(--black);
+}
+.deep-table thead th.center { text-align: center; padding-right: 0; }
+.deep-table tbody td {
+  padding: 18px 16px 18px 0;
+  border-bottom: 0.5px solid var(--black);
+  vertical-align: top;
+  line-height: 1.55;
+  font-size: 13px;
+}
+.deep-table tbody td.center { text-align: center; padding-right: 0; }
+.deep-table tbody tr:last-child td { border-bottom: 1px solid var(--black); }
+.deep-table .param-num {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--blue);
+  width: 40px;
+  font-weight: 400;
+}
+.deep-table .param-name {
+  font-weight: 500;
+  color: var(--black);
+  width: 200px;
+  padding-right: 24px;
+}
+.deep-table .param-value { color: var(--black); line-height: 1.55; }
+.deep-table .param-value strong { font-weight: 700; }
+.deep-table .param-source {
+  font-size: 12px;
+  color: var(--grey-dark);
+  width: 180px;
+  padding-right: 16px;
+  line-height: 1.5;
+  font-style: italic;
+  font-family: 'PT Serif', serif;
+}
+
+/* ===== Cost grid ===== */
+.cost-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin: 36px 0 24px;
+  max-width: 840px;
+  border-top: 1px solid var(--black);
+  border-left: 1px solid var(--black);
+}
+.cost-card {
+  border-right: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+  padding: 32px 28px 28px;
+  background: var(--paper);
+  position: relative;
+}
+.cost-card.recommended { background: var(--paper-shade); }
+.cost-card.recommended::before {
+  content: 'РЕКОМЕНДУЕМ';
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: var(--copper);
+  color: var(--white);
+  font-family: 'Onest', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  padding: 5px 14px;
+  font-weight: 600;
+  border-radius: 100px;
+}
+.cost-name {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 28px;
+  color: var(--black);
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+.cost-sub {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--grey-dark);
+  margin-bottom: 24px;
+}
+.cost-figures {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 20px 0;
+  margin-bottom: 16px;
+  border-top: 1px solid var(--black);
+  border-bottom: 0.5px solid var(--black);
+}
+.cost-figure-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey-dark);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.cost-figure-value {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--blue);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+.cost-figure-sub {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 12px;
+  color: var(--grey-dark);
+  margin-top: 4px;
+}
+.cost-includes {
+  list-style: none;
+  font-size: 13px;
+  color: var(--black);
+}
+.cost-includes li {
+  padding: 6px 0 6px 22px;
+  position: relative;
+  line-height: 1.5;
+}
+.cost-includes li::before {
+  content: '·';
+  position: absolute;
+  left: 8px;
+  top: -2px;
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 20px;
+}
+
+/* ===== Agenda ===== */
+.agenda-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 28px 0 16px;
+  max-width: 840px;
+}
+.agenda-table tr:first-child td {
+  border-top: 1px solid var(--black);
+}
+.agenda-table td {
+  padding: 16px 16px 16px 0;
+  border-bottom: 0.5px solid var(--black);
+  vertical-align: top;
+  line-height: 1.55;
+}
+.agenda-table tr:last-child td { border-bottom: 1px solid var(--black); }
+.agenda-num {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--blue);
+  width: 60px;
+}
+.agenda-topic {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  color: var(--black);
+  width: 200px;
+  padding-right: 24px;
+  font-size: 14px;
+}
+.agenda-detail { font-size: 13px; color: var(--grey-dark); }
+
+/* ===== Sources list ===== */
+.sources-list {
+  list-style: none;
+  margin: 16px 0 32px;
+  max-width: 840px;
+  border-top: 1px solid var(--black);
+}
+.sources-list li {
+  padding: 14px 0;
+  border-bottom: 0.5px solid var(--black);
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 24px;
+  align-items: baseline;
+  line-height: 1.55;
+}
+.sources-list li:last-child {
+  border-bottom: 1px solid var(--black);
+}
+.sources-list .source-label {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  color: var(--black);
+  font-size: 14px;
+  padding-right: 8px;
+}
+.sources-list .source-link {
+  color: var(--copper);
+  text-decoration: none;
+  font-family: 'Onest', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  border-bottom: 0.5px solid var(--copper);
+  display: inline-block;
+  margin-bottom: 6px;
+  word-break: break-word;
+  transition: color 0.15s, border-color 0.15s;
+}
+.sources-list .source-link:hover {
+  color: var(--blue);
+  border-bottom-color: var(--blue);
+}
+.sources-list .source-note {
+  display: block;
+  color: var(--grey-dark);
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.dual-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin: 32px 0;
+  max-width: 840px;
+  border-top: 1px solid var(--black);
+  border-left: 1px solid var(--black);
+}
+.dual-list-col {
+  padding: 24px 28px;
+  background: var(--paper);
+  border-right: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+}
+.dual-list-col h4 {
+  margin-top: 0;
+  margin-bottom: 14px;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.dual-list-col.affirm h4 { color: var(--teal); }
+.dual-list-col.negate h4 { color: var(--red); }
+.dual-list-col ul { list-style: none; }
+.dual-list-col li {
+  font-size: 13px;
+  line-height: 1.55;
+  padding: 6px 0 6px 20px;
+  position: relative;
+  color: var(--black);
+}
+.dual-list-col.affirm li::before {
+  content: '+';
+  position: absolute;
+  left: 2px;
+  top: 5px;
+  color: var(--teal);
+  font-weight: 700;
+  font-size: 13px;
+}
+.dual-list-col.negate li::before {
+  content: '−';
+  position: absolute;
+  left: 2px;
+  top: 5px;
+  color: var(--red);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* ===== Legend ===== */
+.legend {
+  display: flex;
+  gap: 32px;
+  font-family: 'Onest', sans-serif;
+  font-size: 12px;
+  color: var(--grey-dark);
+  margin: 16px 0 24px;
+  flex-wrap: wrap;
+}
+.legend-item { display: flex; align-items: center; gap: 8px; }
+.legend-marker {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+}
+.legend-marker.hard { background: var(--blue); }
+.legend-marker.soft { background: var(--copper); }
+
+/* ===== Footer ===== */
+.footer {
+  margin-top: 96px;
+  padding-top: 32px;
+  border-top: 1px solid var(--black);
+  font-family: 'Onest', sans-serif;
+  font-size: 11px;
+  color: var(--grey-dark);
+  line-height: 1.7;
+  max-width: 840px;
+  letter-spacing: 0.02em;
+}
+.footer p { margin-bottom: 8px; }
+.footer strong { color: var(--black); font-weight: 500; }
+
+/* ===== Print ===== */
+@media print {
+  .sidenav { display: none; }
+  .layout { grid-template-columns: 1fr; }
+  .content { padding: 32px; max-width: 100%; }
+  .section { page-break-inside: avoid; }
+  body { font-size: 11pt; }
+  .cover-panel { border-radius: 0; padding: 32px; }
+  .big-number-value { font-size: 64px; }
+}
+
+@media (max-width: 960px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidenav { display: none; }
+  .content { padding: 32px 24px; }
+  .cover h1 { font-size: 36px; }
+  .cover-panel {
+    padding: 36px 32px;
+    border-radius: 0 80px 0 0;
+    max-width: 100%;
+  }
+  .big-number {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .big-number-value { font-size: 72px; }
+  .blocks-grid, .variants, .cost-grid, .equinor-wide, .dual-list, .narrative-callout {
+    grid-template-columns: 1fr;
+  }
+  .narrative-callout .narrative { border-right: none; border-bottom: 0.5px solid var(--white); }
+  .company-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .company-stats { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<aside class="sidenav">
+  <div class="brand">BITOBE</div>
+  <div class="brand-sub">для ГПН Шельфпроект</div>
+
+  <div class="nav-section">Документ</div>
+  <ul class="nav-list">
+    <li><a href="#glossary"><span class="num">01</span>Глоссарий</a></li>
+    <li><a href="#menu"><span class="num">02</span>Меню структуры</a></li>
+    <li><a href="#equinor"><span class="num">03</span>Пример: Equinor</a></li>
+    <li><a href="#cost"><span class="num">04</span>Варианты</a></li>
+    <li><a href="#sources"><span class="num">05</span>Источники</a></li>
+  </ul>
+</aside>
+
+<main class="content">
+
+  <!-- ========== COVER ========== -->
+  <section class="cover">
+    <div class="cover-meta-top">
+      <span>BITOBE × ГПН Шельфпроект</span>
+      <span>Документ для обсуждения · версия 1</span>
+    </div>
+
+    <div class="cover-panel">
+      <h1>Международный бенчмарк операционной модели — <em>рамка проекта</em> перед стартом</h1>
+
+      <div class="cover-lede">
+        Что именно мы анализируем, на каком уровне глубины и как выглядит результат —
+        на примере одной компании из короткого списка. Объём проекта и бюджет
+        фиксируются после согласования рамки.
+      </div>
+    </div>
+
+    <dl class="cover-meta">
+      <div>
+        <dt>Подготовил</dt>
+        <dd>BITOBE</dd>
+      </div>
+      <div>
+        <dt>Цель встречи</dt>
+        <dd>Согласовать рамку</dd>
+      </div>
+    </dl>
+  </section>
+
+  <!-- ========== 01. GLOSSARY ========== -->
+  <section class="section" id="glossary">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Глоссарий: что мы называем операционной моделью</h2>
+    </div>
+
+    <p class="section-intro">
+      До того, как сравнивать компании из списка, надо договориться, что именно сравниваем.
+      Иначе каждая компания будет рассказана своим языком — и случаи окажутся несопоставимы.
+    </p>
+
+    <div class="definition">
+      <div class="definition-label">Рабочее определение</div>
+      <div class="definition-text">
+        <strong>Операционная модель нефтегазового холдинга</strong> — это связанная
+        система элементов, через которые компания превращает стратегический мандат
+        в результат на активе: организационная архитектура, процессы исполнения,
+        функциональная зрелость, цифровая инфраструктура, ключевые показатели
+        эффективности и культурный код.
+      </div>
+    </div>
+
+    <p>
+      Определение опирается на устоявшиеся отраслевые рамки (канва операционной
+      модели McKinsey, фреймворки IOGP и OGCI) и адаптировано к контексту шельфовой
+      разведки и добычи. Полная операционная модель компании раскладывается на
+      восемь компонентов — это структура анализа, которую мы предлагаем зафиксировать.
+    </p>
+
+    <h3>Восемь компонентов операционной модели</h3>
+
+    <div class="legend">
+      <div class="legend-item"><span class="legend-marker hard"></span>Жёсткие — структура, процессы, числа</div>
+      <div class="legend-item"><span class="legend-marker soft"></span>Мягкие — культура, принятие решений</div>
+    </div>
+
+    <ol class="components">
+      <li>
+        <span class="comp-num">01</span>
+        <span class="comp-name">Стратегия и мандат</span>
+        <span class="comp-desc">Тип компании, структура собственности, доля шельфа, стадия активов</span>
+        <span class="comp-type hard">Жёсткие</span>
+      </li>
+      <li>
+        <span class="comp-num">02</span>
+        <span class="comp-name">Орг. архитектура</span>
+        <span class="comp-desc">Тип структуры, статус шельфового дивизиона, централизация, нормы управляемости</span>
+        <span class="comp-type hard">Жёсткие</span>
+      </li>
+      <li>
+        <span class="comp-num">03</span>
+        <span class="comp-name">Модель управления проектами</span>
+        <span class="comp-desc">Стадийно-шлюзовая модель, технический авторитет, работа с подрядчиками</span>
+        <span class="comp-type hard">Жёсткие</span>
+      </li>
+      <li>
+        <span class="comp-num">04</span>
+        <span class="comp-name">Функциональная зрелость</span>
+        <span class="comp-desc">Технический центр, закупки, HSE-управление, логистика, бурение</span>
+        <span class="comp-type hard">Жёсткие</span>
+      </li>
+      <li>
+        <span class="comp-num">05</span>
+        <span class="comp-name">Цифровизация и данные</span>
+        <span class="comp-desc">Цифровая стратегия, интегрированные операционные центры, применения ИИ и МО, цифровой двойник, управление данными</span>
+        <span class="comp-type hard">Жёсткие</span>
+      </li>
+      <li>
+        <span class="comp-num">06</span>
+        <span class="comp-name">Управление результативностью</span>
+        <span class="comp-desc">Топ-3 КПЭ, балансировка HSE — затраты — сроки, модель кадров, панели показателей</span>
+        <span class="comp-type hard">Жёсткие</span>
+      </li>
+      <li>
+        <span class="comp-num">07</span>
+        <span class="comp-name">Количественные бенчмарки</span>
+        <span class="comp-desc">Себестоимость / БОЭ, доля непроизводительного времени, превышение сроков и бюджета, TRIR, эффективность капвложений, коэффициент готовности</span>
+        <span class="comp-type hard">Жёсткие</span>
+      </li>
+      <li>
+        <span class="comp-num">08</span>
+        <span class="comp-name">Культурный код</span>
+        <span class="comp-desc">Дистанция власти, психологическая безопасность, скорость принятия решений, кадровое движение</span>
+        <span class="comp-type soft">Мягкие</span>
+      </li>
+    </ol>
+
+    <div class="note">
+      <div class="note-label">Зачем фиксируем рамку</div>
+      Восемь компонентов — это «координатная сетка», по которой укладывается каждая
+      компания из списка. Без неё анализ каждой компании пишется в её собственной
+      логике публичной отчётности и своих корпоративных нарративов. Единая рамка
+      делает результат сопоставимым и пригодным для решений на уровне генерального директора.
+    </div>
+  </section>
+
+  <!-- ========== 02. MENU ========== -->
+  <section class="section" id="menu">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>Меню структуры анализа: что вы выбираете</h2>
+    </div>
+
+    <p class="section-intro">
+      Восемь компонентов можно собрать в два варианта комплектации. Между ними —
+      реальный, а не косметический выбор: глубина проникновения в природу принятия решений.
+    </p>
+
+    <h3>Все восемь блоков на одной странице</h3>
+
+    <div class="blocks-grid">
+      <div class="block-card hard">
+        <span class="block-card-type">Жёсткие</span>
+        <div class="block-card-num">Блок 01</div>
+        <div class="block-card-title">Стратегия и мандат</div>
+        <div class="block-card-desc">
+          Кто владелец, что от компании ожидают, какова доля шельфа в портфеле,
+          какова стадия активов
+        </div>
+      </div>
+      <div class="block-card hard">
+        <span class="block-card-type">Жёсткие</span>
+        <div class="block-card-num">Блок 02</div>
+        <div class="block-card-title">Организационная архитектура</div>
+        <div class="block-card-desc">
+          Тип оргструктуры, статус шельфового дивизиона, уровни управления,
+          нормы управляемости, технический авторитет
+        </div>
+      </div>
+      <div class="block-card hard">
+        <span class="block-card-type">Жёсткие</span>
+        <div class="block-card-num">Блок 03</div>
+        <div class="block-card-title">Модель управления проектами</div>
+        <div class="block-card-desc">
+          Стадийно-шлюзовая система, работа с подрядчиками,
+          управление активами
+        </div>
+      </div>
+      <div class="block-card hard">
+        <span class="block-card-type">Жёсткие</span>
+        <div class="block-card-num">Блок 04</div>
+        <div class="block-card-title">Функциональная зрелость</div>
+        <div class="block-card-desc">
+          Технический центр, закупки, HSE-управление, логистика, организация
+          буровой функции
+        </div>
+      </div>
+      <div class="block-card hard">
+        <span class="block-card-type">Жёсткие</span>
+        <div class="block-card-num">Блок 05</div>
+        <div class="block-card-title">Цифровизация и данные</div>
+        <div class="block-card-desc">
+          Цифровая стратегия, интегрированные операционные центры,
+          применения ИИ и МО, цифровой двойник, управление данными
+        </div>
+      </div>
+      <div class="block-card hard">
+        <span class="block-card-type">Жёсткие</span>
+        <div class="block-card-num">Блок 06</div>
+        <div class="block-card-title">Управление результативностью</div>
+        <div class="block-card-desc">
+          Топ-3 КПЭ, балансировка HSE — затраты — сроки, модель кадров,
+          операционные панели показателей
+        </div>
+      </div>
+      <div class="block-card hard">
+        <span class="block-card-type">Жёсткие</span>
+        <div class="block-card-num">Блок 07</div>
+        <div class="block-card-title">Количественные бенчмарки</div>
+        <div class="block-card-desc">
+          Себестоимость / БОЭ, доля непроизводительного времени, превышение
+          сроков и бюджета, TRIR, эффективность капвложений, коэффициент
+          готовности — с честным указанием пробелов в данных
+        </div>
+      </div>
+      <div class="block-card soft">
+        <span class="block-card-type">Мягкие</span>
+        <div class="block-card-num">Блок 08</div>
+        <div class="block-card-title">Культурный код</div>
+        <div class="block-card-desc">
+          Дистанция власти, психологическая безопасность, отношение к ошибкам,
+          скорость принятия решений, кадровое движение — через косвенные
+          индикаторы
+        </div>
+      </div>
+    </div>
+
+    <h3>Два варианта комплектации</h3>
+
+    <div class="variants">
+      <div class="variant">
+        <div class="variant-name">Базовый</div>
+        <div class="variant-sub">Жёсткие параметры, описательный бенчмарк</div>
+        <ul class="variant-rows">
+          <li>
+            <span class="row-label">Блоки</span>
+            <span class="row-value"><strong>1–7</strong> · только жёсткие</span>
+          </li>
+          <li>
+            <span class="row-label">Глубина</span>
+            <span class="row-value">Сравнительные таблицы, количественные показатели, орг-схемы</span>
+          </li>
+          <li>
+            <span class="row-label">Выход</span>
+            <span class="row-value">Справочник «как устроены другие» — для самостоятельной интерпретации</span>
+          </li>
+          <li>
+            <span class="row-label">Когда брать</span>
+            <span class="row-value">Если нужна фактура для внутреннего обсуждения, без внешних рекомендаций</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="variant">
+        <div class="variant-name">Полный</div>
+        <div class="variant-sub">Жёсткие + культурный код, стратегические выводы</div>
+        <ul class="variant-rows">
+          <li>
+            <span class="row-label">Блоки</span>
+            <span class="row-value"><strong>1–8</strong> · жёсткие + мягкие</span>
+          </li>
+          <li>
+            <span class="row-label">Глубина</span>
+            <span class="row-value">+ сверка нарратива с реальностью, фильтры применимости (Россия + культура)</span>
+          </li>
+          <li>
+            <span class="row-label">Выход</span>
+            <span class="row-value">Гипотеза о позиционировании ГПН ШП + 2–3 стратегических шага для генерального директора на 2026–2028</span>
+          </li>
+          <li>
+            <span class="row-label">Когда брать</span>
+            <span class="row-value">Если результат должен лечь в основу решений генерального директора, а не справочника на полке</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="decision-frame">
+      <h4>Открытые вопросы для обсуждения</h4>
+      <ul>
+        <li>Состав блоков: ограничиваемся жёсткими параметрами или включаем культурный слой</li>
+        <li>Глубина по списку: <strong>Уровень 1 — 5 компаний</strong> или <strong>Уровень 1 + Уровень 2 — 9 компаний</strong></li>
+        <li>Включение Сахалинской энергии как отдельного исследования переносимости западной модели в российский контур</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== 03. EQUINOR DEMO ========== -->
+  <section class="section" id="equinor">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Пример: как выглядит результат — на материале Equinor</h2>
+    </div>
+
+    <p class="section-intro">
+      Чтобы вы могли реагировать на конкретный, а не воображаемый результат,
+      мы прошли всю аналитическую рамку на одной компании — Equinor. Из списка
+      это компания с самым богатым публичным следом (раскрываемость 5/5) и
+      ближайший западный аналог по структуре «национальная нефтяная компания
+      с выделенной дочкой».
+    </p>
+
+    <div class="big-number">
+      <div class="big-number-value">5<span class="sep">/</span>5</div>
+      <div class="big-number-caption">
+        <strong>Раскрываемость публичной отчётности.</strong> Из 14 компаний короткого
+        списка Equinor — единственная с максимальной полнотой публикуемых данных по
+        структуре, КПЭ и операционным показателям. Поэтому именно она — пример того,
+        что мы найдём в полном проекте.
+      </div>
+    </div>
+
+    <div class="company-header">
+      <div>
+        <div class="company-name">Equinor ASA</div>
+        <div class="company-tagline">
+          Норвежская национальная нефтяная компания (выделена из материнской структуры),
+          эталон управления стыками между технической, проектной и операционной функциями
+        </div>
+      </div>
+      <dl class="company-stats">
+        <div>
+          <dt>Добыча 2024</dt>
+          <dd>2 067 кБОЭ/д</dd>
+        </div>
+        <div>
+          <dt>Выручка</dt>
+          <dd>~$103 млрд</dd>
+        </div>
+        <div>
+          <dt>Доля норв. шельфа</dt>
+          <dd>70%</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="layer-divider">
+      <span class="layer-num">Слой 01</span>
+      <span class="layer-title">Ширина — все восемь блоков</span>
+      <span class="layer-sub">краткое резюме по каждому компоненту</span>
+    </div>
+
+    <p>
+      Здесь мы показываем, <strong>что мы можем сказать</strong> по каждому из восьми
+      блоков. Глубина — на уровне краткого резюме; полная фактура каждого блока
+      собирается так, как развёрнуто в Слое 02 для Блока 02.
+    </p>
+
+    <div class="equinor-wide">
+      <div class="eq-block">
+        <div class="eq-block-header">
+          <span class="eq-block-num">01</span>
+          <span class="eq-block-title">Стратегия и мандат</span>
+          <span class="confidence high">Высокая</span>
+        </div>
+        <div class="eq-block-body">
+          Национальная нефтяная компания, выделенная из материнской структуры.
+          Норвежское государство 67% (Министерство торговли, промышленности и
+          рыболовства), 33% — публичное обращение (Осло и Нью-Йорк).
+          <strong>Чистый игрок в разведке и добыче</strong>, 70% добычи — на
+          норвежском шельфе. В 02/2025 — <strong>разворот от энергетического
+          перехода</strong>: капвложения в ВИЭ срезаны с $10 до $5 млрд, целевая
+          добыча 2030 повышена с 2,0 до 2,2 ммБОЭ/д.
+        </div>
+      </div>
+
+      <div class="eq-block">
+        <div class="eq-block-header">
+          <span class="eq-block-num">02</span>
+          <span class="eq-block-title">Орг. архитектура</span>
+          <span class="confidence high">Высокая</span>
+        </div>
+        <div class="eq-block-body">
+          Дивизиональная: <strong>6 бизнес-направлений</strong> (EPN, EPI, EPUSA,
+          MMP, REN, PDP) + 5 единиц корпоративного центра. <strong>PDP —
+          отдельная бизнес-единица</strong> (проекты, бурение и закупки) с правом
+          вето. Около 10 членов Правления. Детально — в Слое 02 ниже.
+        </div>
+      </div>
+
+      <div class="eq-block">
+        <div class="eq-block-header">
+          <span class="eq-block-num">03</span>
+          <span class="eq-block-title">Модель управления проектами</span>
+          <span class="confidence mid">Средняя</span>
+        </div>
+        <div class="eq-block-body">
+          <strong>APOS + CAP</strong> — собственная стадийно-шлюзовая система.
+          Развитая модель альянсных и интегрированных контрактов с EPCI-подрядчиками
+          (Aker Solutions на Johan Sverdrup — образец). Конкретные критерии шлюзов
+          частично раскрыты в материалах Дня инвестора.
+        </div>
+      </div>
+
+      <div class="eq-block">
+        <div class="eq-block-header">
+          <span class="eq-block-num">04</span>
+          <span class="eq-block-title">Функциональная зрелость</span>
+          <span class="confidence high">Высокая</span>
+        </div>
+        <div class="eq-block-body">
+          <strong>Вице-президент по технологиям, цифре и инновациям</strong> —
+          отдельное бизнес-направление. Научные центры в Тронхейме, Бергене,
+          Ротволле. HSE-управление — отраслевой эталон (наследие катастрофы
+          Александер Килланд 1980 года). Бурение — гибрид собственной компетенции
+          и развитой работы с подрядчиками.
+        </div>
+      </div>
+
+      <div class="eq-block">
+        <div class="eq-block-header">
+          <span class="eq-block-num">05</span>
+          <span class="eq-block-title">Цифровизация и данные</span>
+          <span class="confidence high">Высокая</span>
+        </div>
+        <div class="eq-block-body">
+          <strong>Интегрированный операционный центр в Бергене</strong> (Сандсли).
+          Цифровой двойник — платформа <strong>Equinor Echo</strong>. Применения
+          ИИ и МО в обработке сейсмики и оптимизации бурения. Управление данными —
+          через корпоративную платформу <strong>Omnia</strong>.
+        </div>
+      </div>
+
+      <div class="eq-block">
+        <div class="eq-block-header">
+          <span class="eq-block-num">06</span>
+          <span class="eq-block-title">Управление результативностью</span>
+          <span class="confidence mid">Средняя</span>
+        </div>
+        <div class="eq-block-body">
+          Топ-3 КПЭ: <strong>HSE (TRIF, SIF), добыча (кБОЭ/сут), удельные затраты
+          ($/БОЭ)</strong>. Приоритет HSE жёстко зашит в логику принятия решений.
+          Модель кадров — долгоработающее норвежское инженерное ядро плюс
+          избирательный внешний найм. Панели показателей — на уровне интегрированного
+          центра.
+        </div>
+      </div>
+
+      <div class="eq-block">
+        <div class="eq-block-header">
+          <span class="eq-block-num">07</span>
+          <span class="eq-block-title">Количественные бенчмарки</span>
+          <span class="confidence high">Высокая</span>
+        </div>
+        <div class="eq-block-body">
+          Себестоимость добычи: ~<strong>$6–7/БОЭ на норвежском шельфе</strong> —
+          один из лучших показателей в мире. TRIR — верхний квартиль. Эффективность
+          капвложений на Johan Sverdrup ~$15/БОЭ (лучший показатель в глубоководье).
+          Коэффициент готовности 95%+ на ключевых активах. Рентабельность капитала 21% за 2024.
+        </div>
+      </div>
+
+      <div class="eq-block">
+        <div class="eq-block-header">
+          <span class="eq-block-num">08</span>
+          <span class="eq-block-title">Культурный код</span>
+          <span class="confidence mid">Средняя</span>
+        </div>
+        <div class="eq-block-body">
+          Дистанция власти <strong>низкая</strong> (1–2 / 5; норвежский базовый
+          показатель Хофстеде = 31). Психологическая безопасность <strong>высокая</strong>:
+          культура «говори, что видишь» зашита со времён катастрофы Александер
+          Килланд. Скорость принятия решений средняя — коллегиальная, но не
+          медленная. Кадровое движение: высокая внутренняя мобильность,
+          умеренный внешний найм.
+        </div>
+      </div>
+    </div>
+
+    <div class="narrative-callout">
+      <div class="narrative">
+        <div class="label">Публичный нарратив</div>
+        <p>
+          Equinor — коллегиальная плоская культура, норвежская эгалитарная модель,
+          «We Care», «открытый диалог». Стратегия 2021 года: 12–16 ГВт ВИЭ
+          к 2030 году, 50% капвложений в низкоуглеродные проекты.
+        </p>
+      </div>
+      <div class="reality">
+        <div class="label">Что показывает анализ</div>
+        <p>
+          5 февраля 2025 года генеральный директор Андерс Опедал объявил
+          <strong>радикальный разворот</strong>: капвложения в ВИЭ срезаны вдвое,
+          рост добычи нефти и газа +10%. Это решение генерального директора
+          и совета директоров, фактически согласованное с норвежским государством, —
+          не «коллегиальный консенсус». Крупные развороты в нефтегазе обычно
+          переупаковываются как «улучшение качества портфеля».
+        </p>
+      </div>
+    </div>
+
+    <p>
+      <strong>Этот тип находок — главная ценность Блока 08.</strong> Без культурного
+      слоя мы остаёмся на уровне публичного нарратива. С ним — видим реальную
+      архитектуру принятия решений, которая релевантна вопросу «можно ли скалькировать
+      норвежскую модель в российский контур».
+    </p>
+
+    <div class="layer-divider">
+      <span class="layer-num">Слой 02</span>
+      <span class="layer-title">Глубина — Блок 02 развёрнут полностью</span>
+      <span class="layer-sub">шесть под-параметров, источники, надёжность</span>
+    </div>
+
+    <p>
+      Так выглядит каждый блок при детальной проработке: шесть под-параметров,
+      каждое утверждение с источником и оценкой надёжности. Полный проект — это
+      такая же сетка по каждому из выбранных блоков для каждой компании из списка.
+    </p>
+
+    <table class="deep-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Под-параметр</th>
+          <th>Значение для Equinor</th>
+          <th>Источник</th>
+          <th class="center">Надёжность</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="param-num">2.1</td>
+          <td class="param-name">Тип оргструктуры</td>
+          <td class="param-value">
+            <strong>Дивизиональная</strong>: 6 бизнес-направлений (EPN, EPI, EPUSA, MMP,
+            REN, PDP) + 5 единиц корпоративного центра. Не классическая матрица,
+            а структура с обособленным PDP как отдельной бизнес-единицей.
+          </td>
+          <td class="param-source">
+            Годовой отчёт 2024, раздел «Our organisation»; День инвестора 2024
+          </td>
+          <td class="center"><span class="confidence high">Высокая</span></td>
+        </tr>
+        <tr>
+          <td class="param-num">2.2</td>
+          <td class="param-name">Статус шельфового дивизиона</td>
+          <td class="param-value">
+            <strong>3 бизнес-единицы</strong>: EPN + EPI + PDP. EPN — норвежский шельф
+            (включая арктику), EPI — международная разведка и добыча без США,
+            PDP — кросс-функциональный центр проектов, бурения и закупок.
+          </td>
+          <td class="param-source">
+            Сегментная отчётность годового отчёта 2024
+          </td>
+          <td class="center"><span class="confidence high">Высокая</span></td>
+        </tr>
+        <tr>
+          <td class="param-num">2.3</td>
+          <td class="param-name">Централизация технических функций</td>
+          <td class="param-value">
+            <strong>Высокая</strong> (4 / 5). Технические стандарты (Technical Requirements)
+            устанавливаются централизованно; исполнение проектов частично
+            децентрализовано; операции — наиболее автономны на уровне активов.
+          </td>
+          <td class="param-source">
+            Функциональные описания, годовой отчёт 2024; материалы Дня инвестора 2024
+          </td>
+          <td class="center"><span class="confidence mid">Средняя</span></td>
+        </tr>
+        <tr>
+          <td class="param-num">2.4</td>
+          <td class="param-name">Уровни управления (CEO → исполнитель)</td>
+          <td class="param-value">
+            ~<strong>6–7 формальных уровней</strong>: генеральный директор →
+            вице-президент по бизнес-направлению → старший вице-президент /
+            вице-президент → директор → менеджер → ведущий → оператор / инженер.
+            Зависит от направления.
+          </td>
+          <td class="param-source">
+            LinkedIn — выборочный анализ (~30 старших ролей); корпоративный сайт
+          </td>
+          <td class="center"><span class="confidence mid">Средняя</span></td>
+        </tr>
+        <tr>
+          <td class="param-num">2.5</td>
+          <td class="param-name">Нормы управляемости C-1 / C-2</td>
+          <td class="param-value">
+            <strong>C-1: ~10</strong> членов Правления (6 глав бизнес-направлений
+            + 4–5 корпоративных). C-2: 5–8 в зависимости от направления;
+            у PDP — самая широкая норма (~8).
+          </td>
+          <td class="param-source">
+            Раскрытие состава Правления, годовой отчёт 2024; LinkedIn
+          </td>
+          <td class="center"><span class="confidence high">Высокая</span></td>
+        </tr>
+        <tr>
+          <td class="param-num">2.6</td>
+          <td class="param-name">Технический авторитет</td>
+          <td class="param-value">
+            <strong>Вице-президент по технологиям, цифре и инновациям</strong> —
+            формальный технический директор на уровне Правления. Имеет собственное
+            бизнес-направление, не подчинён логике разведки и добычи. Право вето
+            реализуется через систему технических и системных требований.
+          </td>
+          <td class="param-source">
+            Раздел «Руководство», годовой отчёт 2024; корпоративный сайт, раздел «Технологии»
+          </td>
+          <td class="center"><span class="confidence high">Высокая</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <div class="note-label">Что мы НЕ нашли публично</div>
+      Точное разделение прав принятия решений между главами бизнес-направлений и
+      корпоративным центром публично не раскрыто; формат регулярных операционных
+      ритмов (заседания Правления, обзоры проектов) известен фрагментарно;
+      персональные КПЭ уровня руководства не публикуются. Это типичные «зоны
+      второго слоя» — закрываются через валидацию инсайдера (бывший директор
+      и выше), как предусмотрено методологией полного проекта.
+    </div>
+  </section>
+
+  <!-- ========== 04. COST ========== -->
+  <section class="section" id="cost">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Что получает клиент по каждому варианту</h2>
+    </div>
+
+    <p class="section-intro">
+      Два варианта различаются глубиной — описательный бенчмарк или направление-задающий
+      документ. Бюджет и сроки фиксируются после согласования рамки.
+    </p>
+
+    <div class="cost-grid">
+      <div class="cost-card">
+        <div class="cost-name">Базовый</div>
+        <div class="cost-sub">Описательный бенчмарк по жёстким параметрам</div>
+
+        <h4>На выходе</h4>
+        <ul class="cost-includes">
+          <li>Сравнительная карта 5 компаний Уровня 1 по 7 блокам жёстких параметров</li>
+          <li>Каждое утверждение с источником и оценкой надёжности</li>
+          <li>Фильтр применимости к России по выявленным практикам</li>
+          <li>Финальная презентация (15–20 слайдов) и опорные материалы</li>
+          <li>Сессия представления результатов команде ГПН ШП</li>
+        </ul>
+
+        <h4>Не входит</h4>
+        <ul class="cost-includes">
+          <li>Анализ культурного кода и архитектуры принятия решений</li>
+          <li>Сверка публичного нарратива с реальностью</li>
+          <li>Гипотеза о позиционировании ГПН ШП и стратегические шаги</li>
+        </ul>
+      </div>
+
+      <div class="cost-card">
+        <div class="cost-name">Полный</div>
+        <div class="cost-sub">Документ, задающий направление 2026–2028</div>
+
+        <h4>На выходе — дополнительно к Базовому</h4>
+        <ul class="cost-includes">
+          <li>Культурный код всех 5 компаний — стиль принятия решений, дистанция власти, отношение к ошибкам</li>
+          <li>Сверка публичного нарратива с реальностью по каждой компании</li>
+          <li>Валидация через 2–3 интервью с бывшими директорами компаний</li>
+          <li>Фильтр культурной применимости в дополнение к российскому</li>
+          <li>Гипотеза о позиционировании ГПН ШП относительно международной картины</li>
+          <li>Три стратегических шага для генерального директора на горизонт 2026–2028</li>
+          <li>Сахалинская энергия — отдельное исследование переносимости западной модели</li>
+        </ul>
+
+        <h4>Когда брать</h4>
+        <ul class="cost-includes">
+          <li>Результат должен лечь в основу решений на 2026–2028</li>
+          <li>Нужен документ-ориентир для внутренней трансформации, не справочник</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note">
+      <div class="note-label">Логика оценки</div>
+      Бюджет, состав команды, длительность и помесячный график — после фиксации
+      варианта и состава компаний на этой встрече. На текущей фазе фиксируется
+      только рамка; финансовая часть оформляется отдельным документом объёма работ.
+    </div>
+  </section>
+
+  <!-- ========== 05. SOURCES ========== -->
+  <section class="section" id="sources">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>Источники</h2>
+    </div>
+
+    <p class="section-intro">
+      Материалы, на которых построен глоссарий, аналитическая рамка и пример анализа
+      Equinor. Полная библиография для каждой компании из списка собирается на этапе
+      проекта; здесь — основные внешние и внутренние источники текущего документа.
+    </p>
+
+    <h3>Публичные материалы Equinor</h3>
+    <ul class="sources-list">
+      <li>
+        <span class="source-label">Годовой отчёт 2024</span>
+        <a class="source-link" href="https://www.equinor.com/investors/annual-reports" target="_blank" rel="noopener">equinor.com / investors / annual-reports</a>
+        <span class="source-note">структура (6 бизнес-направлений + 5 единиц корпоративного центра), состав Правления, сегментная отчётность</span>
+      </li>
+      <li>
+        <span class="source-label">Capital Markets Update 02/2025</span>
+        <a class="source-link" href="https://www.equinor.com/news" target="_blank" rel="noopener">equinor.com / news</a>
+        <span class="source-note">пересмотр стратегии: капвложения в ВИЭ срезаны вдвое, новая цель добычи на 2030</span>
+      </li>
+      <li>
+        <span class="source-label">Раздел «About us»</span>
+        <a class="source-link" href="https://www.equinor.com/about-us" target="_blank" rel="noopener">equinor.com / about-us</a>
+        <span class="source-note">структура собственности, технологическая функция, операционные центры</span>
+      </li>
+    </ul>
+
+    <h3>Методологические рамки</h3>
+    <ul class="sources-list">
+      <li>
+        <span class="source-label">McKinsey People &amp; Organizational Performance</span>
+        <a class="source-link" href="https://www.mckinsey.com/business-functions/people-and-organizational-performance/our-insights" target="_blank" rel="noopener">mckinsey.com / people-and-organizational-performance</a>
+        <span class="source-note">канва операционной модели — основа определения операционной модели в глоссарии</span>
+      </li>
+      <li>
+        <span class="source-label">IOGP — International Association of Oil &amp; Gas Producers</span>
+        <a class="source-link" href="https://www.iogp.org" target="_blank" rel="noopener">iogp.org</a>
+        <span class="source-note">отраслевые рамки операционных моделей, HSE-governance бенчмарки</span>
+      </li>
+      <li>
+        <span class="source-label">OGCI — Oil &amp; Gas Climate Initiative</span>
+        <a class="source-link" href="https://www.ogci.com" target="_blank" rel="noopener">ogci.com</a>
+        <span class="source-note">отраслевые рамки операционных моделей, energy transition контекст</span>
+      </li>
+    </ul>
+
+    <h3>Культурные индикаторы</h3>
+    <ul class="sources-list">
+      <li>
+        <span class="source-label">Hofstede Insights — Country Comparison</span>
+        <a class="source-link" href="https://www.hofstede-insights.com" target="_blank" rel="noopener">hofstede-insights.com</a>
+        <span class="source-note">базовые показатели норвежской культуры (дистанция власти, индивидуализм) для калибровки культурного слоя</span>
+      </li>
+      <li>
+        <span class="source-label">Alexander Kielland disaster (1980)</span>
+        <a class="source-link" href="https://en.wikipedia.org/wiki/Alexander_L._Kielland_(platform)" target="_blank" rel="noopener">en.wikipedia.org / Alexander_L._Kielland</a>
+        <span class="source-note">историческое событие, формирующее культуру HSE и «speak up» в норвежском нефтегазе</span>
+      </li>
+    </ul>
+
+    <h3>Аналитическая разведка</h3>
+    <ul class="sources-list">
+      <li>
+        <span class="source-label">LinkedIn</span>
+        <a class="source-link" href="https://www.linkedin.com" target="_blank" rel="noopener">linkedin.com</a>
+        <span class="source-note">выборочный анализ ~30 старших ролей Equinor для оценки уровней управления и норм управляемости</span>
+      </li>
+    </ul>
+
+    <h3>Внутренние материалы BITOBE</h3>
+    <ul class="sources-list">
+      <li>
+        <span class="source-label">Бенчмарк ГПН Шельфпроект — План v3 финал</span>
+        <span class="source-note">аналитическая рамка из 8 блоков, обоснование выбора компаний, гипотезы</span>
+      </li>
+      <li>
+        <span class="source-label">Бенчмарк ГПН Шельфпроект — Пилот Execution Kit v3</span>
+        <span class="source-note">декомпозиция Блоков 02 и 08 на под-параметры, методология сбора данных</span>
+      </li>
+      <li>
+        <span class="source-label">Global Offshore Leaders Benchmark — Shortlist Validation</span>
+        <span class="source-note">валидация короткого списка компаний, классификация по уровням, оценка раскрываемости</span>
+      </li>
+      <li>
+        <span class="source-label">Транскрипт встречи 17.04.2026</span>
+        <span class="source-note">постановка задачи Натальей Васильевной, согласование первых критериев</span>
+      </li>
+    </ul>
+  </section>
+
+  <footer class="footer">
+    <p><strong>Подготовлено BITOBE</strong> · документ для обсуждения, не консалтинговый меморандум</p>
+    <p>Решения по операционной модели ГПН ШП формулируются на следующей фазе
+    после внутренних интервью; на этом этапе мы согласуем рамку и состав
+    международного бенчмарка</p>
+    <p>Версия 1 · этап согласования рамки</p>
+  </footer>
+
+</main>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-list a[href^="#"]');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          if (link.getAttribute('href') === '#' + id) {
+            link.style.color = 'var(--copper)';
+            link.style.fontWeight = '600';
+          } else {
+            link.style.color = '';
+            link.style.fontWeight = '';
+          }
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+});
+</script>
+
+</body>
+</html>
