@@ -992,6 +992,158 @@ em { font-style: italic; }
 }
 .agenda-detail { font-size: 13px; color: var(--grey-dark); }
 
+/* ===== Tier blocks (классификация компаний) ===== */
+.tier-block {
+  margin: 32px 0 40px;
+  max-width: 900px;
+}
+.tier-header {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 20px;
+  align-items: baseline;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--black);
+}
+.tier-num {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 32px;
+  color: var(--blue);
+  letter-spacing: -0.01em;
+  font-weight: 400;
+}
+.tier-name {
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--black);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+.tier-count {
+  font-family: 'Onest', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey-dark);
+}
+.tier-criteria {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--grey-dark);
+  margin-bottom: 16px;
+  max-width: 760px;
+}
+
+/* Таблица компаний по уровню */
+.companies-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 0;
+}
+.companies-table thead th {
+  text-align: left;
+  font-family: 'Onest', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--black);
+  padding: 10px 14px 10px 0;
+  border-bottom: 1px solid var(--black);
+}
+.companies-table tbody td {
+  padding: 14px 14px 14px 0;
+  border-bottom: 0.5px solid var(--black);
+  vertical-align: top;
+  line-height: 1.5;
+  font-size: 13px;
+}
+.companies-table tbody tr:last-child td { border-bottom: 1px solid var(--black); }
+.companies-table .co-name {
+  font-family: 'Onest', sans-serif;
+  font-weight: 600;
+  color: var(--black);
+  width: 180px;
+  padding-right: 16px;
+}
+.companies-table .co-country {
+  color: var(--grey-dark);
+  width: 120px;
+  font-size: 12px;
+}
+.companies-table .co-share {
+  color: var(--blue);
+  font-weight: 500;
+  width: 110px;
+  font-size: 12px;
+}
+.companies-table .co-note {
+  color: var(--black);
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+/* ===== Стоимость — выносной блок ===== */
+.price-feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin: 36px 0 32px;
+  max-width: 840px;
+  background: var(--navy);
+  color: var(--white);
+}
+.price-feature > div {
+  padding: 32px 36px;
+}
+.price-feature .price-divider {
+  border-right: 0.5px solid rgba(255,255,255,0.3);
+}
+.price-feature .price-label {
+  font-family: 'Onest', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 12px;
+  font-weight: 500;
+  padding-bottom: 6px;
+  border-bottom: 0.5px solid var(--copper);
+  display: inline-block;
+}
+.price-feature .price-value {
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 0.95;
+  color: var(--white);
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+.price-feature .price-value .unit {
+  font-family: 'Onest', sans-serif;
+  font-style: normal;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  margin-left: 4px;
+}
+.price-feature .price-sub {
+  font-family: 'Onest', sans-serif;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.85);
+  max-width: 280px;
+}
+
 /* ===== Sources list ===== */
 .sources-list {
   list-style: none;
@@ -1153,9 +1305,11 @@ em { font-style: italic; }
     gap: 16px;
   }
   .big-number-value { font-size: 72px; }
-  .blocks-grid, .variants, .cost-grid, .equinor-wide, .dual-list, .narrative-callout {
+  .blocks-grid, .variants, .cost-grid, .equinor-wide, .dual-list, .narrative-callout, .price-feature {
     grid-template-columns: 1fr;
   }
+  .price-feature .price-divider { border-right: none; border-bottom: 0.5px solid rgba(255,255,255,0.3); }
+  .price-feature .price-value { font-size: 48px; }
   .narrative-callout .narrative { border-right: none; border-bottom: 0.5px solid var(--white); }
   .company-header { flex-direction: column; align-items: flex-start; gap: 20px; }
   .company-stats { text-align: left; }
@@ -1174,9 +1328,10 @@ em { font-style: italic; }
   <ul class="nav-list">
     <li><a href="#glossary"><span class="num">01</span>Глоссарий</a></li>
     <li><a href="#menu"><span class="num">02</span>Меню структуры</a></li>
-    <li><a href="#equinor"><span class="num">03</span>Пример: Equinor</a></li>
-    <li><a href="#cost"><span class="num">04</span>Варианты</a></li>
-    <li><a href="#sources"><span class="num">05</span>Источники</a></li>
+    <li><a href="#companies"><span class="num">03</span>Компании списка</a></li>
+    <li><a href="#equinor"><span class="num">04</span>Пример: Equinor</a></li>
+    <li><a href="#cost"><span class="num">05</span>Варианты и стоимость</a></li>
+    <li><a href="#sources"><span class="num">06</span>Источники</a></li>
   </ul>
 </aside>
 
@@ -1193,9 +1348,9 @@ em { font-style: italic; }
       <h1>Международный бенчмарк операционной модели — <em>рамка проекта</em> перед стартом</h1>
 
       <div class="cover-lede">
-        Что именно мы анализируем, на каком уровне глубины и как выглядит результат —
-        на примере одной компании из короткого списка. Объём проекта и бюджет
-        фиксируются после согласования рамки.
+        Что именно мы анализируем, на каком уровне глубины, на каких компаниях
+        и как выглядит результат — на примере одной компании из короткого списка.
+        На встрече согласуем рамку и состав; срок и стоимость зафиксированы.
       </div>
     </div>
 
@@ -1226,7 +1381,7 @@ em { font-style: italic; }
     <div class="definition">
       <div class="definition-label">Рабочее определение</div>
       <div class="definition-text">
-        <strong>Операционная модель нефтегазового холдинга</strong> — это связанная
+        <strong>Операционная модель</strong> — это связанная
         система элементов, через которые компания превращает стратегический мандат
         в результат на активе: организационная архитектура, процессы исполнения,
         функциональная зрелость, цифровая инфраструктура, ключевые показатели
@@ -1453,16 +1608,185 @@ em { font-style: italic; }
       <h4>Открытые вопросы для обсуждения</h4>
       <ul>
         <li>Состав блоков: ограничиваемся жёсткими параметрами или включаем культурный слой</li>
-        <li>Глубина по списку: <strong>Уровень 1 — 5 компаний</strong> или <strong>Уровень 1 + Уровень 2 — 9 компаний</strong></li>
+        <li>Глубина по списку: Уровень 1 — 5 компаний или Уровень 1 + Уровень 2 — 9 компаний</li>
         <li>Включение Сахалинской энергии как отдельного исследования переносимости западной модели в российский контур</li>
       </ul>
     </div>
   </section>
 
-  <!-- ========== 03. EQUINOR DEMO ========== -->
-  <section class="section" id="equinor">
+  <!-- ========== 03. COMPANIES ========== -->
+  <section class="section" id="companies">
     <div class="section-header">
       <span class="section-num">03</span>
+      <h2>Компании короткого списка — классификация по уровням</h2>
+    </div>
+
+    <p class="section-intro">
+      Из 47 компаний исходного перечня в короткий список вошли 10. Каждая
+      классифицирована по уровню релевантности для ГПН Шельфпроект — это
+      определяет глубину анализа и веса в итоговых выводах.
+    </p>
+
+    <p>
+      Логика трёх уровней: <strong>при росте полноты картины снижается прямая
+      применимость к российскому контуру</strong>. Уровень 0 даёт точный кейс
+      переносимости, но единственный. Уровень 1 даёт структурно сопоставимые
+      аналоги — это ядро анализа. Уровень 2 даёт эталоны operational excellence
+      на большем масштабе, но в иной структуре собственности и мандата.
+    </p>
+
+    <!-- Tier 0 -->
+    <div class="tier-block">
+      <div class="tier-header">
+        <span class="tier-num">00</span>
+        <span class="tier-name">Прямой российский кейс</span>
+        <span class="tier-count">1 компания</span>
+      </div>
+      <p class="tier-criteria">
+        Единственный пример работы западной операционной модели в российском контуре —
+        до 2022 года под управлением IOC-консорциума, после — национализация
+        и работа в новой конфигурации. Прецедентный case study переносимости.
+      </p>
+      <table class="companies-table">
+        <thead>
+          <tr>
+            <th>Компания</th>
+            <th>Контур</th>
+            <th>Профиль</th>
+            <th>Почему здесь</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="co-name">Сахалинская энергия</td>
+            <td class="co-country">Россия · Дальний Восток</td>
+            <td class="co-share">Шельф 100%</td>
+            <td class="co-note">До 2022 — Sakhalin Energy с Shell, Mitsui, Mitsubishi. После — национальный оператор. Уникальный пример наследования и адаптации западной операционной модели</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tier 1 -->
+    <div class="tier-block">
+      <div class="tier-header">
+        <span class="tier-num">01</span>
+        <span class="tier-name">Структурно сопоставимые ННК и их шельфовые дочки</span>
+        <span class="tier-count">5 компаний</span>
+      </div>
+      <p class="tier-criteria">
+        Ядро анализа. Прошли через три фильтра одновременно: национальная нефтяная
+        компания или её шельфовая дочка, значительная доля шельфа в портфеле,
+        достаточная публичная раскрываемость для содержательного анализа.
+      </p>
+      <table class="companies-table">
+        <thead>
+          <tr>
+            <th>Компания</th>
+            <th>Контур</th>
+            <th>Профиль</th>
+            <th>Почему здесь</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="co-name">Equinor</td>
+            <td class="co-country">Норвегия</td>
+            <td class="co-share">Шельф 70%</td>
+            <td class="co-note">ННК с выделенной дочкой, эталон управления стыками функций. Лучшая раскрываемость (5/5)</td>
+          </tr>
+          <tr>
+            <td class="co-name">Petrobras</td>
+            <td class="co-country">Бразилия</td>
+            <td class="co-share">Шельф ≈95%</td>
+            <td class="co-note">ННК в политически нестабильной среде; глубоководные активы pre-salt. Кейс работы под политическим давлением</td>
+          </tr>
+          <tr>
+            <td class="co-name">CNOOC</td>
+            <td class="co-country">Китай · Гонконг</td>
+            <td class="co-share">Шельф ≈80%</td>
+            <td class="co-note">Шельфовая дочка китайского государственного холдинга. Особый ритм управления, отчётность на HKEX</td>
+          </tr>
+          <tr>
+            <td class="co-name">ADNOC Offshore</td>
+            <td class="co-country">ОАЭ</td>
+            <td class="co-share">Шельф 100%</td>
+            <td class="co-note">Шельфовая дочка ADNOC. Сильная цифровая трансформация, культура «национальный чемпион»</td>
+          </tr>
+          <tr>
+            <td class="co-name">Saudi Aramco</td>
+            <td class="co-country">Саудовская Аравия</td>
+            <td class="co-share">Шельф ≈30%</td>
+            <td class="co-note">Крупнейшая в мире ННК. Не чистый шельфовый оператор, но Safaniya — крупнейшее шельфовое месторождение</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tier 2 -->
+    <div class="tier-block">
+      <div class="tier-header">
+        <span class="tier-num">02</span>
+        <span class="tier-name">Глобальные мейджоры — эталоны operational excellence</span>
+        <span class="tier-count">4 компании</span>
+      </div>
+      <p class="tier-criteria">
+        Международные нефтяные компании. По структуре собственности и мандату
+        дальше от ГПН ШП, но дают эталоны управления подрядчиками, стадийно-шлюзовых
+        систем и operational excellence на больших масштабах.
+      </p>
+      <table class="companies-table">
+        <thead>
+          <tr>
+            <th>Компания</th>
+            <th>Контур</th>
+            <th>Профиль</th>
+            <th>Почему здесь</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="co-name">ExxonMobil</td>
+            <td class="co-country">США</td>
+            <td class="co-share">Шельф ≈40%</td>
+            <td class="co-note">OIMS как стадийно-шлюзовая система. Гайана — образец быстрого освоения нового шельфового бассейна</td>
+          </tr>
+          <tr>
+            <td class="co-name">Shell</td>
+            <td class="co-country">Нидерланды · Великобр.</td>
+            <td class="co-share">Шельф ≈50%</td>
+            <td class="co-note">ORP (Opportunity Realization Process). Глубоководье в Мексиканском заливе и Бразилии</td>
+          </tr>
+          <tr>
+            <td class="co-name">TotalEnergies</td>
+            <td class="co-country">Франция</td>
+            <td class="co-share">Шельф ≈55%</td>
+            <td class="co-note">CTR (Cost Time Resource). Африканский и средиземноморский шельф, СПГ-интеграция</td>
+          </tr>
+          <tr>
+            <td class="co-name">Eni</td>
+            <td class="co-country">Италия</td>
+            <td class="co-share">Шельф ≈60%</td>
+            <td class="co-note">Средиземноморский шельф, восточно-африканский газ. Опыт работы в политически сложных юрисдикциях</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="decision-frame">
+      <h4>Открытые вопросы по составу списка</h4>
+      <ul>
+        <li>Полнота охвата: достаточно 10 компаний или расширить Уровень 2 до BP и Chevron</li>
+        <li>Принципиальность Сахалинского кейса: включаем как Уровень 0 или исключаем из-за политической чувствительности</li>
+        <li>Альтернативы в Уровне 1: рассмотреть Shell Offshore или ExxonMobil Guyana вместо одной из ННК для усиления offshore-фокуса</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== 04. EQUINOR DEMO ========== -->
+  <section class="section" id="equinor">
+    <div class="section-header">
+      <span class="section-num">04</span>
       <h2>Пример: как выглядит результат — на материале Equinor</h2>
     </div>
 
@@ -1790,14 +2114,28 @@ em { font-style: italic; }
   <!-- ========== 04. COST ========== -->
   <section class="section" id="cost">
     <div class="section-header">
-      <span class="section-num">04</span>
-      <h2>Что получает клиент по каждому варианту</h2>
+      <span class="section-num">05</span>
+      <h2>Что получает клиент — варианты и стоимость</h2>
     </div>
 
     <p class="section-intro">
       Два варианта различаются глубиной — описательный бенчмарк или направление-задающий
-      документ. Бюджет и сроки фиксируются после согласования рамки.
+      документ. Срок и стоимость одинаковы для обоих вариантов и фиксируются здесь;
+      состав работ внутри согласуется на встрече.
     </p>
+
+    <div class="price-feature">
+      <div class="price-divider">
+        <div class="price-label">Срок реализации</div>
+        <div class="price-value">2–3<span class="unit">мес.</span></div>
+        <div class="price-sub">С момента подписания формального документа объёма работ</div>
+      </div>
+      <div>
+        <div class="price-label">Стоимость</div>
+        <div class="price-value">5<span class="unit">млн&nbsp;₽</span></div>
+        <div class="price-sub">Бюджет проекта без учёта НДС; финансовая часть оформляется отдельным документом</div>
+      </div>
+    </div>
 
     <div class="cost-grid">
       <div class="cost-card">
@@ -1845,17 +2183,19 @@ em { font-style: italic; }
     </div>
 
     <div class="note">
-      <div class="note-label">Логика оценки</div>
-      Бюджет, состав команды, длительность и помесячный график — после фиксации
-      варианта и состава компаний на этой встрече. На текущей фазе фиксируется
-      только рамка; финансовая часть оформляется отдельным документом объёма работ.
+      <div class="note-label">Что фиксируется на встрече, что — после</div>
+      Срок и стоимость зафиксированы выше. На встрече фиксируем рамку:
+      состав блоков (Базовый или Полный), глубина по списку компаний
+      (Уровень 1 или Уровни 1 + 2), включение Сахалинской энергии.
+      После согласования — формальный документ объёма работ с помесячным
+      графиком и составом команды.
     </div>
   </section>
 
-  <!-- ========== 05. SOURCES ========== -->
+  <!-- ========== 06. SOURCES ========== -->
   <section class="section" id="sources">
     <div class="section-header">
-      <span class="section-num">05</span>
+      <span class="section-num">06</span>
       <h2>Источники</h2>
     </div>
 
